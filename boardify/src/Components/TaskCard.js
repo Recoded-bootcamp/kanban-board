@@ -25,7 +25,7 @@ const TaskCard = ({
       <div className="sm:flex-wrap flex justify-between">
         <h1 className="font-bold text-black text-lg">{task.title}</h1>
         <button
-          className="text-black font-bold -mt-0 hover:text-red-800"
+          className="btn btn-primary"
           onClick={handleDelete}
         >
           {" "}
@@ -74,26 +74,24 @@ const TaskCard = ({
         {task.assignee ? (
           <div className="pt-2">
             <p className="text-sm -mb-3">assigned to</p>
-            <p
-              className="border-2 border-red-800 rounded-2xl text-center
-            align-middle mt-4 w-16 px-2 bg-red-800 text-white  w-28
-           "
-            >
+            <p className="border-2 border-red-800 rounded-2xl text-center
+            align-middle  px-2 bg-red-800 text-white mt-4 w-28
+            ">
               {task.assignee}
             </p>
           </div>
         ) : null}
 
-        <button
-          className="border-2 border-black mt-5 md:mt-8 w-12 bg-black
+<button
+  className="border-2 border-black mt-5 md:mt-8 w-12 bg-black
         text-white hover:cursor-pointer hover:text-white hover:bg-red-800
         hover:border-red-800"
-          onClick={handleEdit}
-        >
-          Edit
-        </button>
-      </div>
-    </div>
+  onClick={handleEdit}
+>
+  Edit
+</button>
+      </div >
+    </div >
   );
 };
 
