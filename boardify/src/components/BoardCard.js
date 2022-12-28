@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import TaskForm from "./TaskForm";
-import TaskCard from "./TaskCard";
-import db from "../backend/firebase-config.js";
 import { collection, onSnapshot, doc, updateDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
+import TaskForm from "./TaskForm";
+import TaskCard from "./TaskCard";
+import db from "../backend/firebase-config";
+import closeIcon from "../assets/images/close.svg";
 
 function BoardCard({ board, onDelete }) {
   const [completed, setCompleted] = useState(false);
@@ -23,13 +24,13 @@ function BoardCard({ board, onDelete }) {
 
   const handleSortingListChange = (e) => {
     if (e.target.value === "due_date") {
-      let sorted = tasks.sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1));
+      const sorted = tasks.sort((a, b) => (a.dueDate > b.dueDate ? 1 : -1));
       setTasks([...sorted]);
     } else if (e.target.value === "asc") {
-      let sorted = tasks.sort((a, b) => (a.title > b.title ? 1 : -1));
+      const sorted = tasks.sort((a, b) => (a.title > b.title ? 1 : -1));
       setTasks([...sorted]);
     } else if (e.target.value === "desc") {
-      let sorted = tasks.sort((a, b) => (a.title < b.title ? 1 : -1));
+      const sorted = tasks.sort((a, b) => (a.title < b.title ? 1 : -1));
       setTasks([...sorted]);
     }
   };
@@ -37,15 +38,14 @@ function BoardCard({ board, onDelete }) {
   const handleTaskChange = (e) => {
     setNewTask({ ...newTask, [e.target.name]: e.target.value });
   };
-  
+
   const createTask = async (task) => {
     if (isUpdate) {
       const updatedTasks = tasks.map((t) => {
         if (t.taskId === task.taskId) {
           return task;
-        } else {
-          return t;
         }
+        return t;
       });
       await updateDoc(boardsRef, {
         tasks: updatedTasks,
@@ -61,17 +61,16 @@ function BoardCard({ board, onDelete }) {
   };
 
   const handleIsCompleted = async (task) => {
-    const boardsRef = doc(db, "boards", board.boardId);
+    const boardRef = doc(db, "boards", board.boardId);
     const updatedTasks = tasks.map((t) => {
       if (t.taskId === task.taskId) {
         return { ...t, isCompleted: !task.isCompleted };
-      } else {
-        return t;
       }
+      return t;
     });
-    await updateDoc(boardsRef, { tasks: updatedTasks });
+    await updateDoc(boardRef, { tasks: updatedTasks });
 
-    setCompleted(() => !completed); 
+    setCompleted(() => !completed);
   };
 
   const editTask = async (task) => {
@@ -112,9 +111,9 @@ function BoardCard({ board, onDelete }) {
     const unsubscribe = onSnapshot(
       collection(db, "boards"),
       (querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          if (doc.id === board.boardId) {
-            setTasks(doc.data().tasks);
+        querySnapshot.forEach((docItem) => {
+          if (docItem.id === board.boardId) {
+            setTasks(docItem.data().tasks);
           }
         });
       }
@@ -123,35 +122,43 @@ function BoardCard({ board, onDelete }) {
   }, [board.boardId]);
 
   return (
-    <div
-      className="px-8 mt-10 lg:mb-10 bg-[#262626] md:mx-3 border-2 rounded-xl
-      border-black mx-auto justify-center align-center w-56 md:w-72"
-    >
-      <button
-        className=" rounded  w-[50px] float-right bg-[#ff3b3b]
-        text-white font-bold mt-4"
-        onClick={() => onDelete(board.boardId)}
-      >
-        X
-      </button>
+    <div className="board-card min-w-[300px] h-[calc(100vh-4rem)] rounded-lg shadow-lg mx-4 p-4 bg-neutral-100 dark:bg-neutral-800">
+      <div className="board-header flex justify-between items-center">
+        <h2 className="text-2xl font-bold py-3">{board.title}</h2>
 
-      <select className="text-[#262626] rounded mt-3" onChange={handleSortingListChange}>
-        <option value="due_date">due Date</option>
-        <option value="asc">asc</option>
-        <option value="desc">desc</option>
-      </select>
+        <button
+          type="button"
+          className="rounded p-2 bg-red-300"
+          onClick={() => onDelete(board.boardId)}
+        >
+          <img src={closeIcon} alt="close" className="w-4 h-4 mx-auto" />
+        </button>
+      </div>
 
-      <h1 className="text-2xl font-bold text-white justify-center mx-auto py-3">
-        {board.title}
-      </h1>
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-bold">Items</h3>
+        <div className="flex items-center">
+          <label htmlFor="sorting" className="text-sm font-bold">
+            Sort by:
+            <select
+              className="bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-100 rounded p-1 ml-2 border border-neutral-300 dark:border-neutral-600"
+              onChange={handleSortingListChange}
+              id="sorting"
+            >
+              <option value="due_date">due Date</option>
+              <option value="asc">asc</option>
+              <option value="desc">desc</option>
+            </select>
+          </label>
+        </div>
+      </div>
 
-      <div className="flex flex-col gap-2">
-        {tasks.map((task, index) => {
-          return (
-            !task.isCompleted ?
+      <div className="flex flex-col">
+        {tasks.map((task) =>
+          !task.isCompleted ? (
             <TaskCard
               handleIsCompleted={handleIsCompleted}
-              key={index}
+              key={task.id}
               task={task}
               editTask={editTask}
               showForm={showForm}
@@ -159,12 +166,9 @@ function BoardCard({ board, onDelete }) {
               setShowForm={setShowForm}
               setIsUpdate={setIsUpdate}
               isUpdate={isUpdate}
-            /> 
-            : null
-          
-          );
-          
-        })}
+            />
+          ) : null
+        )}
       </div>
 
       <TaskForm

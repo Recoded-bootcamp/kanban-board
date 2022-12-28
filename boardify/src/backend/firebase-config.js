@@ -11,11 +11,11 @@ const firebaseConfig = {
   storageBucket: "boredify-ce61b.appspot.com",
   messagingSenderId: "180921146737",
   appId: "1:180921146737:web:fd4bf14f6c9eb93573aad0",
-  measurementId: "G-NJWKHVZH4G"
+  measurementId: "G-NJWKHVZH4G",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
+const db = getFirestore(app);
 
-export default db ; 
+export default db;
