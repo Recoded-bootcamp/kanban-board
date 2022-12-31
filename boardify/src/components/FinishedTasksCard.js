@@ -1,50 +1,62 @@
 import React from "react";
+import descriptionIcon from "../assets/images/file-description.svg";
+import calendarIcon from "../assets/images/calendar-event.svg";
+import assigneeIcon from "../assets/images/user-check.svg";
 
 function FinishedTaskCard({ task }) {
   return (
-    <div className="bg-gray-200 p-5 rounded-lg my-1 text-black">
-      <div className="sm:flex-wrap flex justify-between">
+    <div className="bg-white dark:bg-neutral-900 rounded-lg p-4 mb-4 shadow-md">
+      <div className="sm:flex-wrap flex justify-between items-center mb-4">
         <h1 className="font-bold text-lg">{task.title}</h1>
       </div>
 
       {task.description ? (
-        <p className="pt-2 leading-5">{task.description}</p>
+        <div className="flex items-center pt-2">
+          <img
+            src={descriptionIcon}
+            alt="description"
+            className="w-4 h-5 dark:invert-[0.75]"
+          />
+          <p className="pl-2">{task.description}</p>
+        </div>
       ) : null}
 
       {task.dueDate ? (
-        <div className="flex mt-4">
-          <svg
-            width="20"
-            height="20"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-          >
-            <path
-              d="M32,456a24,24,0,0,0,24,24H456a24,24,0,0,0,24-24V176H32ZM352,212a4,4,0,0,1,4-4h40a4,4,0,0,1,4,4v40a4,4,0,0,1-4,
-          4H356a4,4,0,0,1-4-4Zm0,80a4,4,0,0,1,4-4h40a4,4,0,0,1,4,4v40a4,4,0,0,1-4,4H356a4,4,0,0,1-4-4Zm-80-80a4,4,0,0,1,4-4h40a4,4,0,0,1,4,
-          4v40a4,4,0,0,1-4,4H276a4,4,0,0,1-4-4Zm0,80a4,4,0,0,1,4-4h40a4,4,0,0,1,4,4v40a4,4,0,0,1-4,4H276a4,4,0,0,1-4-4Zm0,80a4,4,0,0,1,4-4h40a4,
-          4,0,0,1,4,4v40a4,4,0,0,1-4,4H276a4,4,0,0,1-4-4Zm-80-80a4,4,0,0,1,4-4h40a4,4,0,0,1,4,4v40a4,4,0,0,1-4,4H196a4,4,0,0,1-4-4Zm0,80a4,4,0,0,
-          1,4-4h40a4,4,0,0,1,4,4v40a4,4,0,0,1-4,4H196a4,4,0,0,1-4-4Zm-80-80a4,4,0,0,1,4-4h40a4,4,0,0,1,4,4v40a4,4,0,0,1-4,4H116a4,4,0,0,1-4-4Zm0,80a4,4,0,0,1,4-4h40a4,4,0,0,1,4,4v40a4,4,0,0,1-4,4H116a4,4,0,0,1-4-4Z"
-            />
-            <path d="M456,64H400.08V32h-48V64H159.92V32h-48V64H56A23.8,23.8,0,0,0,32,87.77V144H480V87.77A23.8,23.8,0,0,0,456,64Z" />
-          </svg>
+        <div className="flex items-center pt-2 ">
+          <img
+            src={calendarIcon}
+            alt="calendar"
+            className="w-4 h-5 dark:invert-[0.75]"
+          />
           <p className="pl-2">{task.dueDate}</p>
         </div>
       ) : null}
 
-      <div className="flex-wrap md:flex md:justify-between w-full">
-        {task.assignee ? (
-          <div className="pt-2 flex-wrap md:flex md:justify-between w-full items-center">
-            <p className="text-sm -mb-3">assigned to</p>
-            <p
-              className="border-2 border-red-800 rounded-2xl text-center
-            align-middle mt-4 w-16 px-2 bg-red-800 text-white w-28"
-            >
-              {task.assignee}
-            </p>
-          </div>
-        ) : null}
-      </div>
+      {task.assignee ? (
+        <div className="flex items-center pt-2">
+          <img
+            src={assigneeIcon}
+            alt="assignee"
+            className="w-4 h-5 dark:invert-[0.75]"
+          />
+          <p className="pl-2">{task.assignee}</p>
+        </div>
+      ) : null}
+
+      <form className="pt-2">
+        <label htmlFor="completed" className="flex items-center">
+          <input
+            className="mr-2 w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+            type="checkbox"
+            id="completed"
+            name="completed"
+            value={task.isCompleted}
+            checked={task.isCompleted}
+            readOnly
+          />
+          Mark as completed
+        </label>
+      </form>
     </div>
   );
 }

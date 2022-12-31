@@ -59,14 +59,14 @@ function Home() {
   };
 
   return (
-    <div className="container mx-auto max-w-5xl h-screen">
+    <div className="container mx-auto min-h-screen px-4 lg:px-0">
       <BoardForm
         onSubmit={handleSubmit}
         onChange={handleOnChange}
         newBoard={newBoard}
       />
 
-      <div className="flex justify-end gap-4 py-2 font-bold">
+      <div className="flex justify-end gap-4 pb-4 font-bold">
         <div className="flex items-center gap-2 rounded-md bg-neutral-200 dark:bg-neutral-800">
           <button
             className="py-2 pl-4 pr-2 rounded-md"

@@ -5,10 +5,11 @@ import About from "./components/About";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import FinishedTasks from "./components/FinishedTasks";
+import "./App.css";
 
 function App() {
   return (
-    <div className="app text-black dark:text-white bg-neutral-100 dark:bg-neutral-900">
+    <div className="app text-black dark:text-neutral-300 bg-neutral-100 dark:bg-neutral-900">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />

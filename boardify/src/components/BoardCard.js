@@ -5,6 +5,7 @@ import TaskForm from "./TaskForm";
 import TaskCard from "./TaskCard";
 import db from "../backend/firebase-config";
 import closeIcon from "../assets/images/close.svg";
+import sortIcon from "../assets/images/sort-descending-board.svg";
 
 function BoardCard({ board, onDelete }) {
   const [completed, setCompleted] = useState(false);
@@ -61,7 +62,7 @@ function BoardCard({ board, onDelete }) {
   };
 
   const handleIsCompleted = async (task) => {
-    const boardRef = doc(db, "boards", board.boardId);
+    const boardRef = doc(db, "boards", task.boardId);
     const updatedTasks = tasks.map((t) => {
       if (t.taskId === task.taskId) {
         return { ...t, isCompleted: !task.isCompleted };
@@ -122,13 +123,13 @@ function BoardCard({ board, onDelete }) {
   }, [board.boardId]);
 
   return (
-    <div className="board-card min-w-[300px] h-[calc(100vh-4rem)] rounded-lg shadow-lg mx-4 p-4 bg-neutral-100 dark:bg-neutral-800">
-      <div className="board-header flex justify-between items-center">
+    <div className="board-card min-w-[300px] max-w-[300px] h-[calc(90vh-4rem)] rounded-lg shadow-lg p-4 bg-neutral-100 dark:bg-neutral-800 overflow-y-scroll">
+      <div className="bard-header flex justify-between items-center">
         <h2 className="text-2xl font-bold py-3">{board.title}</h2>
 
         <button
           type="button"
-          className="rounded p-2 bg-red-300"
+          className="rounded p-2 bg-red-300 transition duration-300 ease-in-out hover:bg-red-500"
           onClick={() => onDelete(board.boardId)}
         >
           <img src={closeIcon} alt="close" className="w-4 h-4 mx-auto" />
@@ -136,29 +137,40 @@ function BoardCard({ board, onDelete }) {
       </div>
 
       <div className="flex justify-between items-center">
-        <h3 className="text-xl font-bold">Items</h3>
+        <h3 className="text-xl font-bold">
+          {tasks.length > 0 && tasks.length === 1
+            ? `${tasks.length} Item`
+            : `${tasks.length} Items`}
+        </h3>
         <div className="flex items-center">
-          <label htmlFor="sorting" className="text-sm font-bold">
-            Sort by:
+          <label
+            htmlFor="sorting"
+            className="text-sm font-bold flex items-center"
+          >
+            <img
+              src={sortIcon}
+              alt="sort"
+              className="w-5 h-5 mx-auto dark:invert-[0.75]"
+            />
             <select
-              className="bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-100 rounded p-1 ml-2 border border-neutral-300 dark:border-neutral-600"
+              className="bg-neutral-200 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-100 rounded p-1 ml-2 border-r-[6px] border-neutral-200 dark:border-neutral-700"
               onChange={handleSortingListChange}
               id="sorting"
             >
-              <option value="due_date">due Date</option>
-              <option value="asc">asc</option>
-              <option value="desc">desc</option>
+              <option value="due_date">Due Date</option>
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
             </select>
           </label>
         </div>
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-4">
         {tasks.map((task) =>
           !task.isCompleted ? (
             <TaskCard
               handleIsCompleted={handleIsCompleted}
-              key={task.id}
+              key={task.taskId}
               task={task}
               editTask={editTask}
               showForm={showForm}
@@ -181,12 +193,6 @@ function BoardCard({ board, onDelete }) {
         isUpdate={isUpdate}
         setIsUpdate={setIsUpdate}
       />
-
-      <h6 className="text-2xl font-bold text-white justify-center mx-auto pb-3 pt-1">
-        {tasks.length > 0 && tasks.length === 1
-          ? `${tasks.length} Task`
-          : `${tasks.length} Tasks`}
-      </h6>
     </div>
   );
 }

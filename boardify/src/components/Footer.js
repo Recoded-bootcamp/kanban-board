@@ -2,28 +2,28 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="bg-neutral-900 text-neutral-100">
-      <footer className="footer container mx-auto flex justify-between py-8 max-w-5xl text-xs">
+    <div className="bg-zinc-900 text-neutral-100">
+      <footer className="footer container mx-auto px-4 lg:px0 flex flex-wrap justify-center sm:justify-between py-8 max-w-5xl text-xs gap-4">
         <div className="flex">
           <span>Made with ❤️ by: &nbsp;</span>
-          <div className="grid grid-flow-col gap-1 font-semibold">
+          <div className="flex flex-wrap font-semibold">
             <a
               href="https://github.com/Banel-Mikhael"
               className="hover:text-neutral-300 transition"
             >
-              Banel,
+              Banel, &nbsp;
             </a>
             <a
               href="https://github.com/Danah-94"
               className="hover:text-neutral-300 transition"
             >
-              Danah,
+              Danah, &nbsp;
             </a>
             <a
               href="https://github.com/alandio"
               className="hover:text-neutral-300 transition"
             >
-              Aland,
+              Aland, &nbsp;
             </a>
             <a
               href="https://github.com/RageOfKurd"
