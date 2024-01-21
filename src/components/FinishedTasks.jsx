@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+
+import db from "~/backend/firebase-config";
 import { collection, onSnapshot } from "firebase/firestore";
+
 import FinishedTaskCard from "./FinishedTasksCard";
-import db from "../backend/firebase-config";
-// import TaskCard from "./TaskCard";
 
 function FinishedTasks() {
   const [boards, setBoards] = useState([]);
@@ -26,7 +27,7 @@ function FinishedTasks() {
       <div className="boards flex min-h-screen pb-4 gap-2 snap-mandatory snap-x overflow-x-scroll my-4">
         {boards.map((board) => {
           const finishedTasks = board.tasks.filter(
-            (task) => task.isCompleted === true
+            (task) => task.isCompleted === true,
           );
 
           return finishedTasks && finishedTasks.length > 0 ? (
@@ -49,7 +50,7 @@ function FinishedTasks() {
                 {board.tasks.map((task) =>
                   task.isCompleted ? (
                     <FinishedTaskCard key={task.taskId} task={task} />
-                  ) : null
+                  ) : null,
                 )}
               </div>
             </div>

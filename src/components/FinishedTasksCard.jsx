@@ -1,7 +1,8 @@
 import React from "react";
-import descriptionIcon from "../assets/images/file-description.svg";
-import calendarIcon from "../assets/images/calendar-event.svg";
-import assigneeIcon from "../assets/images/user-check.svg";
+
+import assigneeIcon from "~/assets/images/user-check.svg";
+import calendarIcon from "~/assets/images/calendar-event.svg";
+import descriptionIcon from "~/assets/images/file-description.svg";
 
 function FinishedTaskCard({ task }) {
   return (
@@ -46,15 +47,16 @@ function FinishedTaskCard({ task }) {
       <form className="pt-2">
         <label htmlFor="completed" className="flex items-center">
           <input
-            className="mr-2 w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            type="checkbox"
+            disabled
+            readOnly
             id="completed"
+            type="checkbox"
             name="completed"
             value={task.isCompleted}
             checked={task.isCompleted}
-            readOnly
+            className="mr-2 w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
           />
-          Mark as completed
+          Marked as completed
         </label>
       </form>
     </div>

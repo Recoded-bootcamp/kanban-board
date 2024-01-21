@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { collection, onSnapshot, doc, updateDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
+import React, { useState, useEffect } from "react";
+
 import TaskForm from "./TaskForm";
 import TaskCard from "./TaskCard";
-import db from "../backend/firebase-config";
-import closeIcon from "../assets/images/close.svg";
-import sortIcon from "../assets/images/sort-descending-board.svg";
+
+import db from "~/backend/firebase-config";
+import { collection, onSnapshot, doc, updateDoc } from "firebase/firestore";
+
+import closeIcon from "~/assets/images/close.svg";
+import sortIcon from "~/assets/images/sort-descending-board.svg";
 
 function BoardCard({ board, onDelete }) {
   const [completed, setCompleted] = useState(false);
@@ -117,7 +120,7 @@ function BoardCard({ board, onDelete }) {
             setTasks(docItem.data().tasks);
           }
         });
-      }
+      },
     );
     return unsubscribe;
   }, [board.boardId]);
@@ -179,7 +182,7 @@ function BoardCard({ board, onDelete }) {
               setIsUpdate={setIsUpdate}
               isUpdate={isUpdate}
             />
-          ) : null
+          ) : null,
         )}
       </div>
 

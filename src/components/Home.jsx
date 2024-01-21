@@ -1,17 +1,20 @@
 import React, { useEffect } from "react";
-import {
-  collection,
-  addDoc,
-  onSnapshot,
-  deleteDoc,
-  doc,
-} from "firebase/firestore";
+
 import BoardForm from "./BoardForm";
 import ListContainer from "./ListContainer";
 import BoardContainer from "./BoardContainer";
-import db from "../backend/firebase-config";
-import listIcon from "../assets/images/list.svg";
-import boardIcon from "../assets/images/board.svg";
+
+import {
+  doc,
+  collection,
+  addDoc,
+  deleteDoc,
+  onSnapshot,
+} from "firebase/firestore";
+import db from "~/backend/firebase-config";
+
+import listIcon from "~/assets/images/list.svg";
+import boardIcon from "~/assets/images/board.svg";
 
 function Home() {
   const [boards, setBoards] = React.useState([]);

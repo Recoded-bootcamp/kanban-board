@@ -1,18 +1,19 @@
 import React from "react";
-import closeIcon from "../assets/images/close.svg";
-import calendarIcon from "../assets/images/calendar-event.svg";
-import descriptionIcon from "../assets/images/file-description.svg";
-import assigneeIcon from "../assets/images/user-check.svg";
-import editIcon from "../assets/images/pencil.svg";
+
+import closeIcon from "~/assets/images/close.svg";
+import editIcon from "~/assets/images/pencil.svg";
+import assigneeIcon from "~/assets/images/user-check.svg";
+import calendarIcon from "~/assets/images/calendar-event.svg";
+import descriptionIcon from "~/assets/images/file-description.svg";
 
 function TaskCard({
   task,
-  deleteTask,
   editTask,
   showForm,
-  setShowForm,
   isUpdate,
+  deleteTask,
   setIsUpdate,
+  setShowForm,
   handleIsCompleted,
 }) {
   const handleDelete = () => {

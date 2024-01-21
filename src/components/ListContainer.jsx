@@ -1,11 +1,11 @@
 import React from "react";
-import detelteIcon from "../assets/images/close.svg";
-import CalendarIcon from "../assets/images/calendar-event.svg";
-import UserIcon from "../assets/images/user-check.svg";
-import EditIcon from "../assets/images/pencil.svg";
+
+import EditIcon from "~/assets/images/pencil.svg";
+import detelteIcon from "~/assets/images/close.svg";
+import UserIcon from "~/assets/images/user-check.svg";
+import CalendarIcon from "~/assets/images/calendar-event.svg";
 
 function ListContainer({ boards }) {
-  console.log(boards);
   return (
     <div className="boards flex flex-col gap-2 overflow-x-scroll mb-4 h-full">
       {boards.map((board) => (
@@ -71,24 +71,15 @@ function ListContainer({ boards }) {
                         </thead>
                         <tbody>
                           {board.tasks.map((taskItem, index) => (
-                            <tr className="bg-gray-100">
-                              <td
-                                className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 dark:bg-neutral-700 text-center text-neutral-800 dark:text-neutral-300"
-                                key={taskItem.taskId}
-                              >
+                            <tr className="bg-gray-100" key={taskItem.taskId}>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300">
                                 {index}
                               </td>
-                              <td
-                                className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300"
-                                key={taskItem.taskId}
-                              >
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300">
                                 {taskItem.title}
                               </td>
 
-                              <td
-                                className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300"
-                                key={taskItem.taskId}
-                              >
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300">
                                 {taskItem.dueDate ? (
                                   <div className="flex items-center px-2 py-1 rounded-full min-w-max bg-gray-200 dark:bg-neutral-600 text-neutral-800 dark:text-neutral-300">
                                     <img
@@ -102,16 +93,10 @@ function ListContainer({ boards }) {
                                   </div>
                                 ) : null}
                               </td>
-                              <td
-                                className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300"
-                                key={taskItem.taskId}
-                              >
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300">
                                 {taskItem.assignee}
                               </td>
-                              <td
-                                className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300"
-                                key={taskItem.taskId}
-                              >
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300">
                                 {taskItem.isCompleted ? (
                                   <div className="flex items-center px-2 py-1 min-w-max rounded-full bg-gray-200 dark:bg-neutral-600 text-neutral-800 dark:text-neutral-300">
                                     <img
@@ -127,10 +112,7 @@ function ListContainer({ boards }) {
                                   </div>
                                 ) : null}
                               </td>
-                              <td
-                                className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300"
-                                key={taskItem.taskId}
-                              >
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 dark:bg-neutral-700 text-neutral-800 dark:text-neutral-300">
                                 <div className="flex flex-row gap-2 justify-end">
                                   <button
                                     type="button"

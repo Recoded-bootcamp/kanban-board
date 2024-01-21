@@ -3,12 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 
 function TaskForm({
   task,
+  showForm,
+  isUpdate,
+  setNewTask,
+  setShowForm,
   handleTaskChange,
   handleTaskSubmit,
-  showForm,
-  setShowForm,
-  setNewTask,
-  isUpdate,
 }) {
   const handleAddNewEmptyTask = () => {
     setShowForm(true);
@@ -91,7 +91,6 @@ function TaskForm({
               value={task.description}
               name="description"
               id="description"
-              type="text"
             />
           </label>
 
